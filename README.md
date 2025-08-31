@@ -8,20 +8,20 @@ A **React + MUI CRUD application** to manage records with **validation**, **casc
 
 - Create, Read, Update, Delete records  
 - Material UI DataGrid for table management  
-- Search & Pagination support  
+- Pagination support  
 - Real-time updates after CRUD operations  
 - Form validation:
   - Phone → 10 digits, auto format `(123)-456-7890`
   - Email → must include `@` and `.`
   - Mandatory fields: Phone, Email  
-- Cascading selects: **State → District → City**  
+- Cascading selects: **State → District **
 - Responsive & user-friendly UI  
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** React.js, Material UI, Tailwind CSS, Framer Motion  
+- **Frontend:** React.js, Material UI, Tailwind CSS
 - **Backend/API:** Node.js + Express (with Axios for calls)  
 - **Database:** MongoDB  
 
@@ -29,8 +29,7 @@ A **React + MUI CRUD application** to manage records with **validation**, **casc
    
 ## 📌 Usage
 - Fill the form → Save to create/update record.
-- Edit/Delete records directly from the table.
-- Use search bar to filter records.
+- Edit records directly from the table.
 - Navigate pages with pagination controls.
 
 ## 📡 API Endpoints
@@ -57,5 +56,6 @@ A **React + MUI CRUD application** to manage records with **validation**, **casc
    npm run dev
 
 4. Open in browser → http://localhost:5173 (Vite default)
-   Backend runs on → http://localhost:5000
+   
+5. Backend runs on → http://localhost:5000
    
