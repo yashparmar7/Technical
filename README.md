@@ -26,10 +26,36 @@ A **React + MUI CRUD application** to manage records with **validation**, **casc
 - **Database:** MongoDB  
 
 ---
+   
+## 📌 Usage
+- Fill the form → Save to create/update record.
+- Edit/Delete records directly from the table.
+- Use search bar to filter records.
+- Navigate pages with pagination controls.
+
+## 📡 API Endpoints
+- GET /record/listsrecord → fetch all records
+- POST /record/addrecord → add record
+- PUT /record/updaterecord/:id → update record
 
 ## ⚙️ Installation & Setup
 
 1. **Clone the repo**
-```bash
-git clone <your-repo-url>
-cd record-crud
+   ```bash
+   git clone <your-repo-url>
+   
+2. **Backend Setup**
+   ```bash
+   cd backend
+   npm install
+   
+   node server.js
+   
+3. **Frontend Setup**
+   ```bash
+   cd frontend
+   npm run dev
+
+4. Open in browser → http://localhost:5173 (Vite default)
+   Backend runs on → http://localhost:5000
+   
