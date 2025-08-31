@@ -14,7 +14,7 @@ A **React + MUI CRUD application** to manage records with **validation**, **casc
   - Phone → 10 digits, auto format `(123)-456-7890`
   - Email → must include `@` and `.`
   - Mandatory fields: Phone, Email  
-- Cascading selects: **State → District **
+- Cascading selects: **State → District**
 - Responsive & user-friendly UI  
 
 ---
