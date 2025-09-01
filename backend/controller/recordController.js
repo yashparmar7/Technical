@@ -72,3 +72,18 @@ export const handleRecordUpdateController = async (req, res) => {
     return res.status(500).json({ Success: false, Message: error.message });
   }
 };
+
+export const handleRecordDeleteController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleting = await Record.deleteOne({ _id: id });
+
+    if (deleting?.acknowledged) {
+      return res
+        .status(200)
+        .json({ Success: true, Message: "Record Deleted Successfully " });
+    }
+  } catch (error) {
+    return res.status(500).json({ Success: false, Message: error.message });
+  }
+};

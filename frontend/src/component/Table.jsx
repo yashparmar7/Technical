@@ -8,8 +8,10 @@ import {
   Typography,
   Box,
   Pagination,
+  TextField,
 } from "@mui/material";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function CustomFooter({ paginationModel, setPaginationModel, rowCount }) {
   const { page, pageSize } = paginationModel;
@@ -34,8 +36,9 @@ function CustomFooter({ paginationModel, setPaginationModel, rowCount }) {
         justifyContent: "space-between",
         alignItems: "center",
         px: 2,
-        py: 1,
+        py: 1.5,
         borderTop: "1px solid #e5e7eb",
+        backgroundColor: "#fafafa",
       }}
     >
       <Box display="flex" alignItems="center" gap={1}>
@@ -44,7 +47,7 @@ function CustomFooter({ paginationModel, setPaginationModel, rowCount }) {
           value={pageSize}
           onChange={handlePageSizeChange}
           size="small"
-          sx={{ height: 32, fontSize: "0.85rem" }}
+          sx={{ height: 32, fontSize: "0.85rem", borderRadius: 2 }}
         >
           {[8, 10, 20, 30, 40, 50].map((size) => (
             <MenuItem key={size} value={size}>
@@ -72,27 +75,65 @@ function CustomFooter({ paginationModel, setPaginationModel, rowCount }) {
   );
 }
 
-const Table = ({ recordList, handleUpdate }) => {
+const Table = ({ recordList, handleUpdate, handleDelete }) => {
+  const [searchText, setSearchText] = React.useState("");
+  const [paginationModel, setPaginationModel] = React.useState({
+    page: 0,
+    pageSize: 8,
+  });
+
+  //search
+  const filteredRecords = recordList.filter((item) => {
+    const search = searchText.toLowerCase();
+    return (
+      item.firstName?.toLowerCase().includes(search) ||
+      item.lastName?.toLowerCase().includes(search) ||
+      item.phone?.toLowerCase().includes(search) ||
+      item.email?.toLowerCase().includes(search) ||
+      item.address?.toLowerCase().includes(search) ||
+      item.stateName?.toLowerCase().includes(search) ||
+      item.districtName?.toLowerCase().includes(search) ||
+      item.cityName?.toLowerCase().includes(search) ||
+      item.pincode?.toLowerCase().includes(search)
+    );
+  });
+
   const columns = [
     {
       field: "action",
       headerName: "Actions",
-      width: 70,
+      width: 110,
       sortable: false,
       renderCell: (params) => (
-        <IconButton
-          onClick={() => handleUpdate(params.row)}
-          sx={{
-            border: "1px solid #9ca3af",
-            borderRadius: "8px",
-            width: 32,
-            height: 32,
-            color: "primary.main",
-            "&:hover": { backgroundColor: "#f3f4f6" },
-          }}
-        >
-          <DriveFileRenameOutlineIcon />
-        </IconButton>
+        <Box display="flex" gap={1} alignItems="center">
+          <IconButton
+            onClick={() => handleUpdate(params.row)}
+            sx={{
+              border: "1px solid #9ca3af",
+              borderRadius: "8px",
+              width: 34,
+              height: 34,
+              color: "primary.main",
+              "&:hover": { backgroundColor: "#f3f4f6" },
+            }}
+          >
+            <DriveFileRenameOutlineIcon fontSize="small" />
+          </IconButton>
+
+          <IconButton
+            onClick={() => handleDelete(params.row)}
+            sx={{
+              border: "1px solid #ef4444",
+              borderRadius: "8px",
+              width: 34,
+              height: 34,
+              color: "error.main",
+              "&:hover": { backgroundColor: "#fee2e2" },
+            }}
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </Box>
       ),
     },
     { field: "firstName", headerName: "First name", flex: 1, minWidth: 100 },
@@ -106,50 +147,71 @@ const Table = ({ recordList, handleUpdate }) => {
     { field: "pincode", headerName: "Zip", flex: 1, minWidth: 100 },
   ];
 
-  const [paginationModel, setPaginationModel] = React.useState({
-    page: 0,
-    pageSize: 8,
-  });
-
   return (
     <div className="container">
-      <h2 className="text-lg font-semibold mb-4 flex justify-center items-center">
+      <h2 className="text-lg font-semibold mb-4 text-center">
         Show the List of Records
       </h2>
-      <Paper sx={{ height: 420, width: "100%", borderRadius: 3, p: 1 }}>
+
+      <Box display="flex" justifyContent="flex-end" mb={2}>
+        <TextField
+          size="small"
+          placeholder="Search..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          sx={{
+            width: 260,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 2,
+            },
+          }}
+        />
+      </Box>
+
+      <Paper
+        sx={{
+          height: 460,
+          width: "100%",
+          borderRadius: 3,
+          p: 2,
+          boxShadow: "0px 2px 6px rgba(0,0,0,0.05)",
+        }}
+      >
         <DataGrid
-          rows={recordList.map((item) => ({ ...item, id: item._id }))}
+          rows={filteredRecords.map((item) => ({ ...item, id: item._id }))}
           columns={columns}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           pageSizeOptions={[8, 10, 20, 30, 40, 50]}
+          disableRowSelectionOnClick
           slots={{
             toolbar: GridToolbar,
             footer: () => (
               <CustomFooter
                 paginationModel={paginationModel}
                 setPaginationModel={setPaginationModel}
-                rowCount={recordList.length}
+                rowCount={filteredRecords.length}
               />
             ),
           }}
           sx={{
             border: 0,
             "& .MuiDataGrid-columnHeader": {
-              backgroundColor: "#f5f5f5",
-              color: "#333",
-              fontWeight: "bold",
+              backgroundColor: "#f9fafb",
+              color: "#374151",
+              fontWeight: 600,
               fontSize: "0.95rem",
             },
             "& .MuiDataGrid-columnHeaderTitle": {
               textTransform: "capitalize",
             },
             "& .MuiDataGrid-row:hover": {
-              backgroundColor: "#ffff",
+              backgroundColor: "#fefefe",
             },
             "& .MuiDataGrid-cell": {
               borderBottom: "1px solid #f0f0f0",
               fontSize: "0.9rem",
+              py: 1,
             },
           }}
         />
