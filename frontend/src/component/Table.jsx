@@ -153,7 +153,7 @@ const Table = ({ recordList, handleUpdate, handleDelete }) => {
         Show the List of Records
       </h2>
 
-      <Box display="flex" justifyContent="flex-end" mb={2}>
+      <Box display="flex" justifyContent="flex-end" mb={1}>
         <TextField
           size="small"
           placeholder="Search..."
@@ -197,7 +197,7 @@ const Table = ({ recordList, handleUpdate, handleDelete }) => {
           sx={{
             border: 0,
             "& .MuiDataGrid-columnHeader": {
-              backgroundColor: "#f9fafb",
+              backgroundColor: "#f5f5f5",
               color: "#374151",
               fontWeight: 600,
               fontSize: "0.95rem",
@@ -205,6 +205,7 @@ const Table = ({ recordList, handleUpdate, handleDelete }) => {
             "& .MuiDataGrid-columnHeaderTitle": {
               textTransform: "capitalize",
             },
+
             "& .MuiDataGrid-row:hover": {
               backgroundColor: "#fefefe",
             },

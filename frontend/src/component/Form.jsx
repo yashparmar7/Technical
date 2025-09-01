@@ -117,15 +117,15 @@ const Form = ({ refreshRecords, editingRecord, setEditingRecord }) => {
   };
 
   return (
-    <div className="bg-white p-6 ">
+    <div className="bg-white p-2 ">
       <Toaster position="top-center" reverseOrder={false} />
-      <h2 className="text-lg font-semibold mb-6">
+      <h2 className="text-lg font-semibold mb-16">
         {editingRecord
           ? "Edit the single record Here"
           : "Add the single record Here"}
       </h2>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <TextField
           label="First Name"
           name="firstName"
