@@ -170,7 +170,7 @@ const Table = ({ recordList, handleUpdate, handleDelete }) => {
 
       <Paper
         sx={{
-          height: 460,
+          height: 475,
           width: "100%",
           borderRadius: 3,
           p: 2,
