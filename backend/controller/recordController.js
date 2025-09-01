@@ -1,4 +1,4 @@
-import { Record } from "../model/record.js";
+import { Record } from "../model/Record.js";
 
 export const handleRecordAddController = async (req, res) => {
   try {
@@ -33,13 +33,11 @@ export const handleRecordAddController = async (req, res) => {
     });
 
     await recordAdd.save();
-    return res
-      .status(200)
-      .json({
-        Success: true,
-        Message: "Record Inserted Successfully",
-        Id: recordAdd._id,
-      });
+    return res.status(200).json({
+      Success: true,
+      Message: "Record Inserted Successfully",
+      Id: recordAdd._id,
+    });
   } catch (error) {
     return res.status(500).json({ Success: false, Message: error.message });
   }
